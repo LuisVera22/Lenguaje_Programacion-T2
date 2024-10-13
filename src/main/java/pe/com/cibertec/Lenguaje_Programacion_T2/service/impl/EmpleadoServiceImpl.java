@@ -27,5 +27,43 @@ public class EmpleadoServiceImpl implements EmpleadoService{
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public EmpleadoEntity buscarEmpleadoPorId(String dni) {
+		// TODO Auto-generated method stub
+		return empleadoRepository.findById(dni).get();
+	}
+
+	@Override
+	public void actualizarEmpleado(String dni, EmpleadoEntity empleadoActualizado) {
+		// TODO Auto-generated method stub
+		EmpleadoEntity empleadoEncontrado = buscarEmpleadoPorId(dni);
+		if(empleadoEncontrado == null) {
+			throw new RuntimeException("Empleado no encontrado");
+		}
+		try {
+			empleadoEncontrado.setDni_empleado(empleadoActualizado.getDni_empleado());
+			empleadoEncontrado.setNombre_empleado(empleadoActualizado.getNombre_empleado());
+			empleadoEncontrado.setApellido_empleado(empleadoActualizado.getApellido_empleado());
+			empleadoEncontrado.setFecha_nacimiento(empleadoActualizado.getFecha_nacimiento());
+			empleadoEncontrado.setDireccion(empleadoActualizado.getDireccion());
+			empleadoEncontrado.setCorreo(empleadoActualizado.getCorreo());
+			empleadoEncontrado.setArea(empleadoActualizado.getArea());
+			empleadoRepository.save(empleadoEncontrado);
+		} catch (Exception e) {
+			// TODO: handle exception
+			throw new RuntimeException("Error al actualizar");
+		}
+	}
+
+	@Override
+	public void eliminarEmpleado(String dni) {
+		// TODO Auto-generated method stub
+		EmpleadoEntity empleadoEncontrado = buscarEmpleadoPorId(dni);
+		if(empleadoEncontrado == null) {
+			throw new RuntimeException("Empleado no encontrado");
+		}
+		empleadoRepository.delete(empleadoEncontrado);
+	}
 	
 }
