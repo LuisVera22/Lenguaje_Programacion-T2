@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Empleados</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="icon" href="/path/to/favicon.ico" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>Lista de Empleados</h2>
+        
+		<a th:href="@{/empleados/registrar_empleado}" class="btn btn-success mb-3">Registrar</a>
+        
+        <table class="table table-bordered table-striped table-hover table-responsive">
+            <thead>
+                <tr>
+                    <th>DNI</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Fecha de Nacimiento</th>
+                    <th>Dirección</th>
+                    <th>Correo</th>
+                    <th>Área</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="empleado : ${listaEmpleados}">
+                    <td th:text="${empleado.dni_empleado}"></td>
+                    <td th:text="${empleado.nombre_empleado}"></td>
+                    <td th:text="${empleado.apellido_empleado}"></td>
+					<td th:text="${#temporals.format(empleado.fecha_nacimiento, 'dd/MM/yyyy')}"></td>
+                    <td th:text="${empleado.direccion}"></td>
+                    <td th:text="${empleado.correo}"></td>
+                    <td th:text="${empleado.area.nombre_area}"></td>
+                    <td>
+						<a th:href="@{/empleados/editar_empleado/{dni}(dni=${empleado.dni_empleado})}" class="btn btn-warning btn-sm">Editar</a>
+                        <a th:href="@{/empleados/info_empleado/{dni}(dni=${empleado.dni_empleado})}" class="btn btn-primary btn-sm">Info</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <script src="/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

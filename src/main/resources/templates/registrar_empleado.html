@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Registrar Empleado</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>Registrar Empleado</h2>
+        <form th:action="@{/empleados/registrar_empleado}" th:object="${empleado}" method="post" class="mt-4">
+            <div class="form-group">
+                <label for="dni_empleado">DNI</label>
+                <input type="text" th:field="*{dni_empleado}" class="form-control" id="dni" required>
+            </div>
+            <div class="form-group">
+                <label for="nombre_empleado">Nombre</label>
+                <input type="text" th:field="*{nombre_empleado}" class="form-control" id="nombre" required>
+            </div>
+            <div class="form-group">
+                <label for="apellido_empleado">Apellido</label>
+                <input type="text" th:field="*{apellido_empleado}" class="form-control" id="apellido" required>
+            </div>
+			<div class="form-group">
+			    <label for="fecha_nacimiento">Fecha de Nacimiento</label>
+			    <input type="date" th:field="*{fecha_nacimiento}" class="form-control" id="fecha_nacimiento">
+			</div>
+            <div class="form-group">
+                <label for="direccion">Dirección</label>
+                <input type="text" th:field="*{direccion}" class="form-control" id="direccion" required>
+            </div>
+            <div class="form-group">
+                <label for="correo">Correo</label>
+                <input type="email" th:field="*{correo}" class="form-control" id="correo" required>
+            </div>
+            <div class="form-group">
+                <label for="categoriaEntity">Área</label>
+                <select th:field="*{area.areaId}" class="form-control" id="area" required>
+                    <option value="" disabled selected>Seleccione un área</option>
+                    <option th:each="areas : ${areas}" 
+                            th:value="${areas.areaId}" 
+                            th:text="${areas.nombre_area}">
+                    </option>
+                </select>
+            </div>
+			<a th:href="@{/lista_empleados}" class="btn btn-secondary">Cancelar</a>
+            <button type="submit" class="btn btn-success">Registrar Empleado</button>
+        </form>
+    </div>
+    <script src="/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
